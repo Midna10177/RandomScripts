@@ -1,0 +1,6 @@
+#!/bin/bash
+ADB=/mnt/c/Users/renar/Downloads/platform-tools/adb.exe
+ADB=adb
+${ADB} devices
+${ADB} tcpip 5555
+${ADB} connect 192.168.153.190:5555

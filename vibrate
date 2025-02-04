@@ -1,0 +1,5 @@
+#!/bin/bash
+
+termux-vibrate&
+sleep $1
+exec $0 $1

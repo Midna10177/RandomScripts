@@ -1,0 +1,9 @@
+#!/bin/bash
+
+ipscanlog="ipscan.log"
+portscanlog="portscan.log"
+
+while read l; do
+ nmap $l > $portscanlog
+done < $ipscanlog
+

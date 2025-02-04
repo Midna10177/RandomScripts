@@ -1,0 +1,40 @@
+#!/bin/bash
+
+ARGS=$*
+
+#CHOP video up into frames
+rm -rf frames
+mkdir frames
+ffmpeg -hide_banner -i "$ARGS" frames/%05d.ppm
+
+#get widthxheight
+DATA=$(ffprobe -v quiet -print_format json -show_format -show_streams "$ARGS")
+ WIDTH=$(echo $DATA|jq ".streams[0].width")
+ HEIGHT=$(echo $DATA|jq ".streams[0].height")
+ echo $WIDTH $HEIGHT
+
+#get framerate
+FPS=$(ffmpeg -hide_banner -i "$ARGS" 2>&1 | sed -n "s/.*, \(.*\) fp.*/\1/p")
+echo $FPS fps
+
+
+
+cd frames
+mkdir ntsc
+
+for i in *.ppm
+do
+ 
+ #ffmpeg -hide_banner -i "$i" -y t.ppm
+ #echo ntsc -op $WIDTH $HEIGHT 24 3 t.ppm out.ppm
+ ntsc -o $WIDTH $HEIGHT 24 3 $i "ntsc/$i"
+ rm $i
+ #ffmpeg -hide_banner -i out.ppm -vf scale=$WIDTH:$HEIGHT -y "ntsc/$i"
+ #rm t.ppm out.ppm
+done
+
+# jq ".streams[0].width"
+# jq ".streams[0].height"
+
+cd ..
+ffmpeg -hide_banner -r $FPS -i frames/ntsc/%05d.ppm -i "$ARGS"  -map 0:0 -map 1:1 -vf scale=$WIDTH:$HEIGHT -y out.mp4

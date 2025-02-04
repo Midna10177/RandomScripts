@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+adb connect 192.168.254.12:$(sudo nmap 192.168.254.12 -sS -p30000-49999 | grep unknown | grep tcp | grep open | head -n 1 | cut -d '/' -f 1 )

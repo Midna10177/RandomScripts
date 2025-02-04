@@ -1,0 +1,11 @@
+#!/bin/bash
+backupfolder=termux-files
+
+mkdir $backupfolder
+
+rsync -rtuvz -e 'ssh -p 8022' --progress moto:"~/*" "$backupfolder"
+rsync -rtuvz -e 'ssh -p 8022' --progress motonew:"~/*" "$backupfolder"
+rsync -rtuvz -e 'ssh -p 8022' --progress "$backupfolder/" moto:"~/"
+rsync -rtuvz -e 'ssh -p 8022' --progress "$backupfolder/" motonew:"~/"
+
+#rsync -arvz -e 'ssh -p 8022' --progress --delete renny@10.0.0.20 ~/

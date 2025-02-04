@@ -1,0 +1,9 @@
+#!/bin/bash
+memes='/data/data/com.termux/files/home/storage/shared/memes'
+
+rsync -rtuvz -e 'ssh -p 8022' --progress moto:"$memes/" "$memes/"
+rsync -rtuvz -e 'ssh -p 8022' --progress motonew:"$memes/" "$memes/"
+rsync -rtuvz -e 'ssh -p 8022' --progress "$memes/" moto:"$memes/"
+rsync -rtuvz -e 'ssh -p 8022' --progress "$memes/" motonew:"$memes/"
+
+#rsync -arvz -e 'ssh -p 8022' --progress --delete renny@10.0.0.20 ~/

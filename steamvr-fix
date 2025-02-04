@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+#https://github.com/ValveSoftware/SteamVR-for-Linux/issues/355
+#sudo mv /usr/share/vulkan/icd.d/intel_icd.x86_64.json /usr/share/vulkan/icd.d/intel_icd.x86_64.json.disabled
+sudo mv /usr/share/vulkan/icd.d/intel_icd.x86_64.json.disabled /usr/share/vulkan/icd.d/intel_icd.x86_64.json
+
